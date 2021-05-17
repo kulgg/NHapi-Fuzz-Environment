@@ -1,0 +1,1 @@
+MSH|^~\&|YourEHR|YourHospital|MyEHR|MyClinic|202103290110||ADT^A40|7659303|P|2.7

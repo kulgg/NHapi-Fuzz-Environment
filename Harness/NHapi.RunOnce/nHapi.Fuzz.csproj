@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <PackageReference Include="nHapi" Version="3.0.0-preview.2" />
+    <PackageReference Include="SharpFuzz" Version="1.6.2" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <RestoreSources>../Packages;$(RestoreSources)https://api.nuget.org/v3/index.json</RestoreSources>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+</Project>
