@@ -1,21 +1,17 @@
 import re
 import logging
+from math import ceil
 
-from .runprocess import RunProcess
-from ..modules.crash import crash
-from ..modules.hang import hang
+from utils.runprocess import RunProcess
+from modules.crash import crash
+from modules.hang import hang
 
 def extractCrashesAndHangs(inputpaths, execpath, timeout):
-    global crashfiles, hangfiles, unique_errors
-
-    logging.info("[*] # Phase1 # Extracting unique stack trace crash inputs")
     ninputs = 1
     crashes = []
     hangs = []
 
     for path in inputpaths:
-        if input % int(len(inputpaths) / 10):
-            logging.info("[*] Input: {}  Crashes: {}   Hangs: {}   Total Inputs: {}".format(ninputs, len(crashes), len(hangs),len(inputpaths)))
         fd = open(path, 'rb')
         # Get the input bytes that created a crash/hang in afl
         filecontent = fd.read()
@@ -37,6 +33,9 @@ def extractCrashesAndHangs(inputpaths, execpath, timeout):
                 e = p1.group(1) + b" " + p2.group(1)
             c = crash(path, filecontent, stdout=r[1], stderr=r[2], mintrace=e)
             crashes.append(c)
+            
+        if ninputs % ceil(len(inputpaths) / 10) == 0 or ninputs == 1:
+            logging.info("Input: {}  Crashes: {}   Hangs: {}   Total Inputs: {}".format(ninputs, len(crashes), len(hangs),len(inputpaths)))
         ninputs += 1
     
     return crashes, hangs

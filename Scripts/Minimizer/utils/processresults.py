@@ -26,21 +26,24 @@ def processExtractedHangs(hangs, outputdir):
 
 def processUniqueMinCrashes(crashes, outputdir):
     unique_inputs = []
+    ucrashes = []
     fdunique = open(outputdir + "/unique_min_crashes", "wb")
     for crash in crashes:
         if crash.content not in unique_inputs:
             unique_inputs.append(crash.content)
             fdunique.write(crash.content + b"\n" + crash.stderr + b"\n")
-            crash.unique = True
+            ucrashes.append(crash)
         else:
             os.remove(crash.filepath)
     fdunique.close()
-    return crashes
+    return ucrashes
 
 def processUniqueMinHangs(hangs, outputdir):
     # Open file to write all unique minimized hangs to for an overview
     fdunique = open(outputdir + "/unique_min_hangs", "wb")
     unique_hangs = []
+    uhangs = []
+
     for h in hangs:
         if h.content not in unique_hangs:
             fdunique.write(h.content + b"\n")
@@ -48,5 +51,5 @@ def processUniqueMinHangs(hangs, outputdir):
             of.write(h.content)
             of.close()
             unique_hangs.append(h.content)
-            h.unique = True
-    return hangs
+            uhangs.append(h)
+    return uhangs

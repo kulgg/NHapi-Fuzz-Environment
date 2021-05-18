@@ -5,7 +5,7 @@ from time import sleep
 import sys
 
 def main():
-    if len(sys.argv) == 1:
+    if len(sys.argv) == 2:
         outputdir = sys.argv[1]
         while True:
             os.system("afl-whatsup {}".format(outputdir))
