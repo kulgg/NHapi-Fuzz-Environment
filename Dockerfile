@@ -79,6 +79,7 @@ RUN sharpfuzz Harness/nHapi.RunOnce/bin/Debug/netcoreapp3.1/NHapi.Model.V27.dll
 RUN echo 'alias minFindings="/app/Scripts/Minimizer/minFindings.py"' >> /root/.bashrc
 RUN echo 'alias whatsup="/app/Scripts/whatsup.py"' >> /root/.bashrc
 RUN echo 'alias fuzz="/app/Scripts/run.sh"' >> /root/.bashrc
+RUN chmod +x /app/Scripts/Minimizer/minFindings.py /app/Scripts/whatsup.py /app/Scripts/run.sh
 
 # Container runs indefinitely until its stopped
 CMD tail -f /dev/null
